@@ -12,18 +12,6 @@ const InputFields: React.FC<InputFieldsProps> = ({ children }) => {
   const [height, setHeight] = React.useState('');
   const [age, setAge] = React.useState('');
 
-  // const handleWeightChange = (inputText: string) => {
-  //     setWeight(inputText)
-  // };
-
-  // const handleHeightChange = (inputText: string) => {
-  //   setHeight(inputText)
-  // };
-
-  // const handleAgeChange = (inputText: string) => {
-  //   setAge(inputText)
-  // };
-
   const handleNumericChange = (inputText: string, setter: React.Dispatch<React.SetStateAction<string>>) => {
     // Replace non-numeric characters with an empty string***
     const numericInput = inputText.replace(/[^0-9]/g, '');
