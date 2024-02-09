@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ActivityIndicator } from 'react-native';
 
 const InputFields: React.FC = () => {
   const [weight, setWeight] = useState('');
@@ -9,6 +10,7 @@ const InputFields: React.FC = () => {
   const [age, setAge] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [bmi, setBMI] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleNumericChange = (inputText: string, setter: React.Dispatch<React.SetStateAction<string>>, field: string) => {
     const numericInput = inputText.replace(/[^0-9]/g, '');
@@ -34,6 +36,11 @@ const InputFields: React.FC = () => {
       return;
     }
 
+    // Show loading spinner
+    setIsLoading(true);
+
+
+    setTimeout(() => {
     // Calculate BMI if all fields are filled
     const weightInKg = parseFloat(weight);
     const heightInM = parseFloat(height) / 100; // Convert height from cm to m
@@ -46,6 +53,10 @@ const InputFields: React.FC = () => {
     setWeight('');
     setHeight('');
     setAge('');
+
+    // Hide loading spinner
+    setIsLoading(false);
+    }, 2000);
   };
 
   return (
@@ -88,10 +99,14 @@ const InputFields: React.FC = () => {
         {errors.height && <Text style={styles.error}>{errors.height}</Text>}
       </View>
       <View >
-        <Button title='Calculate BMI' onPress={calculateBMI} />
+        <Button title='Calculate BMI' onPress={calculateBMI} color="#00A000"/>
       </View>
       <View>
-        {bmi !== null && <Text style={styles.result}>Your BMI: {bmi.toFixed(2)}</Text>}
+      {isLoading ? (
+          <ActivityIndicator size="large" color="#008000" />
+        ) : bmi !== null && (
+          <Text style={styles.result}>Your BMI: {bmi.toFixed(2)}</Text>
+        )}
       </View>
     </View>
   );
@@ -134,7 +149,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   result: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: '600',
     color: '#008000',
     marginTop: 10,
