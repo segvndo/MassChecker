@@ -1,5 +1,7 @@
+import { FontAwesome } from '@expo/vector-icons';
 import React from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons';
 
 type InputFieldsProps = {
   children?: React.ReactNode
@@ -37,6 +39,9 @@ const InputFields: React.FC<InputFieldsProps> = ({ children }) => {
         <Text style={styles.titles}>
           Age
         </Text>
+        <FontAwesome name="user" size={24} color="#008000" />
+        <View>
+        </View>
         <TextInput
           style={styles.inputField}
           onChangeText={(text) => handleNumericChange(text, setAge)}
@@ -48,6 +53,9 @@ const InputFields: React.FC<InputFieldsProps> = ({ children }) => {
         <Text style={styles.titles}>
           Weight
         </Text>
+        <FontAwesome name="balance-scale" size={24} color="#008000" />
+        <View>
+        </View>
         <TextInput
           style={styles.inputField}
           onChangeText={(text) => handleNumericChange(text, setWeight)}
@@ -60,6 +68,9 @@ const InputFields: React.FC<InputFieldsProps> = ({ children }) => {
         <Text style={styles.titles}>
           Height
         </Text>
+          <View style={{ transform: [{ rotate: '-90deg' }] }}>
+            <MaterialIcons name="straighten" size={24} color="#008000" />
+          </View>
         <TextInput
           style={styles.inputField}
           onChangeText={(text) => handleNumericChange(text, setHeight)}
@@ -75,6 +86,7 @@ const InputFields: React.FC<InputFieldsProps> = ({ children }) => {
 const styles = StyleSheet.create({
   titles: {
     fontSize: 20,
+    fontWeight: '600',
     color: '#008000',
   },
   inputRow: {
@@ -98,6 +110,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 6,
     fontSize: 20,
+    color: '#008000'
   }
 })
 
