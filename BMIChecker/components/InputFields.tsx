@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native';
@@ -41,21 +41,21 @@ const InputFields: React.FC = () => {
 
 
     setTimeout(() => {
-    // Calculate BMI if all fields are filled
-    const weightInKg = parseFloat(weight);
-    const heightInM = parseFloat(height) / 100; // Convert height from cm to m
-    const bmiValue = weightInKg / (heightInM * heightInM);
-    // Reset errors
-    setErrors({});
-    setBMI(bmiValue);
+      // Calculate BMI if all fields are filled
+      const weightInKg = parseFloat(weight);
+      const heightInM = parseFloat(height) / 100; // Convert height from cm to m
+      const bmiValue = weightInKg / (heightInM * heightInM);
+      // Reset errors
+      setErrors({});
+      setBMI(bmiValue);
 
-    // Clear input fields
-    setWeight('');
-    setHeight('');
-    setAge('');
+      // Clear input fields
+      setWeight('');
+      setHeight('');
+      setAge('');
 
-    // Hide loading spinner
-    setIsLoading(false);
+      // Hide loading spinner
+      setIsLoading(false);
     }, 2000);
   };
 
@@ -98,11 +98,13 @@ const InputFields: React.FC = () => {
         />
         {errors.height && <Text style={styles.error}>{errors.height}</Text>}
       </View>
-      <View >
-        <Button title='Calculate BMI' onPress={calculateBMI} color="#00A000"/>
+      <View style={styles.calculate}>
+        <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
+        <FontAwesome name="calculator" size={24} color="#fff" />
+        {/* <Text style={{ color: '#fff', fontSize: 20 }}>Calculate BMI</Text> */}
       </View>
       <View>
-      {isLoading ? (
+        {isLoading ? (
           <ActivityIndicator size="large" color="#008000" />
         ) : bmi !== null && (
           <Text style={styles.result}>Your BMI: {bmi.toFixed(2)}</Text>
@@ -141,6 +143,15 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     fontSize: 20,
     color: '#008000'
+  },
+  calculate: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    marginVertical: 10, 
+    backgroundColor: '#008000', 
+    padding: 10, 
+    borderRadius: 10
   },
   button: {
     backgroundColor: '#008000',
