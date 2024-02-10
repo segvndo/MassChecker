@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Image } from 'react-native';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 const InputFields: React.FC = () => {
   const [weight, setWeight] = useState('');
@@ -39,7 +37,6 @@ const InputFields: React.FC = () => {
     // Show loading spinner
     setIsLoading(true);
 
-
     setTimeout(() => {
       // Calculate BMI if all fields are filled
       const weightInKg = parseFloat(weight);
@@ -49,14 +46,48 @@ const InputFields: React.FC = () => {
       setErrors({});
       setBMI(bmiValue);
 
+      // Hide loading spinner
+      setIsLoading(false);
+
       // Clear input fields
       setWeight('');
       setHeight('');
       setAge('');
-
-      // Hide loading spinner
-      setIsLoading(false);
     }, 2000);
+  };
+
+  const renderBMIGauge = () => {
+    let backgroundColor = '#F0F0F0';
+
+    if (bmi !== null) {
+      if (bmi < 18.5) {
+        backgroundColor = '#95bff3'; // Light blue for underweight
+      } else if (bmi >= 18.5 && bmi < 25) {
+        backgroundColor = '#0cc967'; // Green for normal weight
+      } else if (bmi >= 25 && bmi < 30) {
+        backgroundColor = '#ffe666'; // Yellow for overweight
+      } else if (bmi >= 30 && bmi < 35) {
+        backgroundColor = '#FFA500'; // Orange for obesity class I
+      } else {
+        backgroundColor = '#ff4242'; // Red for obesity class II and above
+      }
+    }
+
+    return backgroundColor;
+  };
+
+  const interpretBMI = (bmiValue: number): string => {
+    if (bmiValue < 18.5) {
+      return "Underweight";
+    } else if (bmiValue >= 18.5 && bmiValue < 25) {
+      return "Normal";
+    } else if (bmiValue >= 25 && bmiValue < 30) {
+      return "Overweight";
+    } else if (bmiValue >= 30 && bmiValue < 35) {
+      return "Obesity Class I";
+    } else {
+      return "Obesity Class II and above";
+    }
   };
 
   return (
@@ -101,13 +132,30 @@ const InputFields: React.FC = () => {
       <View style={styles.calculate}>
         <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
         <FontAwesome name="calculator" size={24} color="#fff" />
-        {/* <Text style={{ color: '#fff', fontSize: 20 }}>Calculate BMI</Text> */}
       </View>
       <View>
+        <Image source={require('../assets/bmi3.jpeg')} />
+      </View>
+      <View style={[styles.result, { backgroundColor: renderBMIGauge() }]}>
         {isLoading ? (
-          <ActivityIndicator size="large" color="#008000" />
-        ) : bmi !== null && (
-          <Text style={styles.result}>Your BMI: {bmi.toFixed(2)}</Text>
+          <View style={styles.spinnerContainer}>
+            <ActivityIndicator size="large" color="#008000" />
+          </View>
+        ) : (
+          <>
+            {bmi !== null && (
+              <>
+                <View style={styles.interpretationContainer}>
+                  <Text style={styles.interpretation}>
+                    {interpretBMI(bmi)}
+                  </Text>
+                </View>
+                <Text style={styles.resultText}>
+                  Your BMI: {bmi.toFixed(2)}
+                </Text>
+              </>
+            )}
+          </>
         )}
       </View>
     </View>
@@ -142,28 +190,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 6,
     fontSize: 20,
-    color: '#008000'
+    color: '#008000',
   },
-  calculate: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'space-between', 
-    marginVertical: 10, 
-    backgroundColor: '#008000', 
-    padding: 10, 
-    borderRadius: 10
-  },
-  button: {
+  calculate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: 10,
     backgroundColor: '#008000',
     padding: 10,
     borderRadius: 10,
-    marginVertical: 10,
+  },
+  bmiGauge: {
+    padding: 10,
+    borderRadius: 10,
   },
   result: {
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  resultText: {
     fontSize: 25,
     fontWeight: '600',
-    color: '#008000',
-    marginTop: 10,
+    color: '#fff',
+    marginTop: 20,
+    marginBottom: 20,
     textAlign: 'center',
   },
   error: {
@@ -173,7 +225,27 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 2,
     right: 2,
-  }
+  },
+  spinnerContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  // interpretationContainer: {
+  //   backgroundColor: '#000',
+  //   borderRadius: 10,
+  //   padding: 10,
+  // },
+  interpretation: {
+    paddingTop: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    
+  },
 });
 
 export default InputFields;
