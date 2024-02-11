@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('Main' as never);
+      navigation.navigate('Disclaimer' as never);
     }, 2000);
 
     return () => clearTimeout(timer);
