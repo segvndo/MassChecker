@@ -50,9 +50,9 @@ const InputFields: React.FC = () => {
       setIsLoading(false);
 
       // Clear input fields
-      setWeight('');
-      setHeight('');
       setAge('');
+      setHeight('');
+      setWeight('');
     }, 2000);
   };
 
@@ -135,7 +135,7 @@ const InputFields: React.FC = () => {
         <FontAwesome name="calculator" size={24} color="#fff" />
       </TouchableOpacity>
 
-      <View>
+      <View style={{ paddingTop: 30, paddingBottom: 30}}>
         <Image source={require('../assets/bmi.jpeg')} />
       </View>
       <View style={[styles.result, { backgroundColor: renderBMIGauge() }]}>
