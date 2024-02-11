@@ -153,7 +153,7 @@ const InputFields: React.FC = () => {
                   </Text>
                 </View>
                 <Text style={styles.resultText}>
-                  Your BMI: {bmi.toFixed(2)}
+                  BMI Result: {bmi.toFixed(2)}
                 </Text>
               </>
             )}

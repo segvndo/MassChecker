@@ -9,14 +9,13 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('Main' as never);
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor:'#008000' }} edges={['top']}>
-      
+    <SafeAreaView style={{ flex: 1, backgroundColor:'#008000' }}>
       <View style={styles.container}>
         <Header />
       </View>
