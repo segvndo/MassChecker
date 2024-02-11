@@ -129,20 +129,14 @@ const InputFields: React.FC = () => {
         />
         {errors.height && <Text style={styles.error}>{errors.height}</Text>}
       </View>
-      {/* <View style={styles.calculate}>
-        <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
-        <FontAwesome name="calculator" size={24} color="#fff" />
-      </View> */}
 
       <TouchableOpacity onPress={calculateBMI} style={styles.calculate}>
-        
-          <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
-          <FontAwesome name="calculator" size={24} color="#fff" />
-
+        <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
+        <FontAwesome name="calculator" size={24} color="#fff" />
       </TouchableOpacity>
 
       <View>
-        <Image source={require('../assets/bmi3.jpeg')} />
+        <Image source={require('../assets/bmi.jpeg')} />
       </View>
       <View style={[styles.result, { backgroundColor: renderBMIGauge() }]}>
         {isLoading ? (
@@ -153,7 +147,7 @@ const InputFields: React.FC = () => {
           <>
             {bmi !== null && (
               <>
-                <View style={styles.interpretationContainer}>
+                <View>
                   <Text style={styles.interpretation}>
                     {interpretBMI(bmi)}
                   </Text>
@@ -241,18 +235,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // interpretationContainer: {
-  //   backgroundColor: '#000',
-  //   borderRadius: 10,
-  //   padding: 10,
-  // },
   interpretation: {
     paddingTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
-    
+
   },
 });
 
