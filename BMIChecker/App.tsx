@@ -1,26 +1,19 @@
-// import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import MainContainer from './components/MainContainer';
-import Header from './components/Header';
-// import { Header } from 'react-native/Libraries/NewAppScreen';
+import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomePage from './components/HomePage';
+import MainPage from './components/MainPage';
+import { useNavigation } from '@react-navigation/native';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={{ flex: 1 }}>
-      <SafeAreaView style={{ backgroundColor: '#008000' }} />
-      <View>
-        <Header />
-      </View>
-      <MainContainer />
-      <SafeAreaView style={{ backgroundColor: '#000' }} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+        <Stack.Screen name="Main" component={MainPage} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

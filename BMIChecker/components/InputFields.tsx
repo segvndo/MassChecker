@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 const InputFields: React.FC = () => {
@@ -129,10 +129,18 @@ const InputFields: React.FC = () => {
         />
         {errors.height && <Text style={styles.error}>{errors.height}</Text>}
       </View>
-      <View style={styles.calculate}>
+      {/* <View style={styles.calculate}>
         <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
         <FontAwesome name="calculator" size={24} color="#fff" />
-      </View>
+      </View> */}
+
+      <TouchableOpacity onPress={calculateBMI} style={styles.calculate}>
+        
+          <Button title='Calculate BMI' onPress={calculateBMI} color="#fff" />
+          <FontAwesome name="calculator" size={24} color="#fff" />
+
+      </TouchableOpacity>
+
       <View>
         <Image source={require('../assets/bmi3.jpeg')} />
       </View>
@@ -213,7 +221,7 @@ const styles = StyleSheet.create({
   resultText: {
     fontSize: 25,
     fontWeight: '600',
-    color: '#fff',
+    color: '#000',
     marginTop: 20,
     marginBottom: 20,
     textAlign: 'center',
@@ -242,7 +250,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#000',
     textAlign: 'center',
     
   },
